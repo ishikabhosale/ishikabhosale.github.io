@@ -1,8 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutContact from "../components/home/AboutContact.astro";
+import ExperienceTimeline from "../components/home/ExperienceTimeline.astro";
+import Hero from "../components/home/Hero.astro";
+import JournalPreview from "../components/home/JournalPreview.astro";
+import SelectedWork from "../components/home/SelectedWork.astro";
+import { getFeaturedProjects, getPublishedWriting } from "../lib/content";
+
+const projects = await getFeaturedProjects();
+const writing = await getPublishedWriting();
+const latestArticlePath = writing[0]
+  ? `/writing/${writing[0].data.slug}/`
+  : "/writing/";
 ---
 
-<BaseLayout>
-  <h1>Ishika Bhosale</h1>
-  <p>Systems &amp; Cloud Engineer</p>
+<BaseLayout canonicalPath="/">
+  <Hero locale="en" latestArticlePath={latestArticlePath}>
+    <div slot="model"></div>
+  </Hero>
+  <SelectedWork locale="en" projects={projects} />
+  <ExperienceTimeline locale="en" />
+  <JournalPreview locale="en" entries={writing} />
+  <AboutContact locale="en" />
 </BaseLayout>

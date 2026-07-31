@@ -17,7 +17,9 @@ export async function getPublishedWriting(): Promise<
   CollectionEntry<"writing">[]
 > {
   const entries = await getCollection("writing", ({ data }) => !data.draft);
-  return sortByDate(entries.map((entry) => ({ ...entry, publishedAt: entry.data.publishedAt }))).map(
+  return sortByDate(
+    entries.map((entry) => ({ ...entry, publishedAt: entry.data.publishedAt })),
+  ).map(
     ({ publishedAt: _publishedAt, ...entry }) => entry,
   ) as CollectionEntry<"writing">[];
 }
@@ -25,9 +27,6 @@ export async function getPublishedWriting(): Promise<
 export async function getFeaturedProjects(): Promise<
   CollectionEntry<"projects">[]
 > {
-  const entries = await getCollection(
-    "projects",
-    ({ data }) => data.featured,
-  );
+  const entries = await getCollection("projects", ({ data }) => data.featured);
   return entries.toSorted((left, right) => left.data.order - right.data.order);
 }

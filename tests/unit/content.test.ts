@@ -7,7 +7,11 @@ describe("content helpers", () => {
   });
 
   it("rounds reading time up at 220 words per minute", () => {
-    expect(estimateReadingMinutes(Array.from({ length: 221 }, () => "word").join(" "))).toBe(2);
+    expect(
+      estimateReadingMinutes(
+        Array.from({ length: 221 }, () => "word").join(" "),
+      ),
+    ).toBe(2);
   });
 
   it("sorts newest entries first without mutating the input", () => {

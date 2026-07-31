@@ -1,0 +1,41 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import { getDictionary, type Locale } from "../../i18n/config";
+
+interface Props {
+  locale: Locale;
+  latestArticlePath: string;
+}
+
+const { locale, latestArticlePath } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<section class="hero section-frame" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow">{dictionary["hero.eyebrow"]}</p>
+    <h1 id="hero-title">Ishika<br />Bhosale</h1>
+    <p class="hero-role">{dictionary["hero.role"]}</p>
+    <p class="hero-summary">{dictionary["hero.summary"]}</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="#work">
+        {dictionary["hero.work"]}
+        <ArrowRight size={18} stroke-width="1.5" aria-hidden="true" />
+      </a>
+      <a class="text-link" href={latestArticlePath}>
+        {dictionary["hero.article"]}
+        <ArrowRight size={18} stroke-width="1.5" aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+  <div class="hero-model-column">
+    <div
+      class="model-slot"
+      data-model-stage
+      aria-label={dictionary["hero.interaction"]}
+    >
+      <slot name="model" />
+    </div>
+    <p class="model-caption">{dictionary["hero.interaction"]}</p>
+  </div>
+</section>
