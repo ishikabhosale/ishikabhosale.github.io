@@ -1,0 +1,45 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPublishedWriting } from "../../lib/content";
+import { writingPath } from "../../lib/urls";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedWriting();
+  return posts.map((post, index) => ({
+    params: { slug: post.data.slug },
+    props: {
+      post,
+      previous: posts[index + 1],
+      next: posts[index - 1],
+    },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  previous?: CollectionEntry<"writing">;
+  next?: CollectionEntry<"writing">;
+}
+
+const { post, previous, next } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalPath={writingPath(post.data.slug)}
+  article
+>
+  <ArticleLayout
+    post={post}
+    locale="en"
+    headings={headings}
+    previous={previous}
+    next={next}
+  >
+    <Content />
+  </ArticleLayout>
+</BaseLayout>

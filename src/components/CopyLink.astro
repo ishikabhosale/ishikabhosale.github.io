@@ -1,0 +1,42 @@
+---
+import { Link } from "@lucide/astro";
+import { getDictionary, type Locale } from "../i18n/config";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<button
+  class="copy-link"
+  type="button"
+  data-copy-link
+  data-copy-label={dictionary["article.copy"]}
+  data-copied-label={dictionary["article.copied"]}
+  aria-label={dictionary["article.copy"]}
+>
+  <Link size={16} stroke-width="1.5" aria-hidden="true" />
+  <span>{dictionary["article.copy"]}</span>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-copy-link]");
+
+  button?.addEventListener("click", async () => {
+    const copyLabel = button.dataset.copyLabel ?? "Copy link";
+    const copiedLabel = button.dataset.copiedLabel ?? "Link copied";
+
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      button.querySelector("span")!.textContent = copiedLabel;
+      window.setTimeout(() => {
+        button.querySelector("span")!.textContent = copyLabel;
+      }, 1800);
+    } catch {
+      button.querySelector("span")!.textContent = copyLabel;
+    }
+  });
+</script>
