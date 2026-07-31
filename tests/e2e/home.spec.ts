@@ -5,7 +5,9 @@ test("presents the approved portfolio hierarchy", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Ishika Bhosale",
   );
-  await expect(page.getByText("Systems & Cloud Engineer")).toBeVisible();
+  await expect(
+    page.getByText("Systems & Cloud Engineer", { exact: true }),
+  ).toBeVisible();
   await expect(page.locator("#work")).toBeVisible();
   await expect(page.locator("#experience")).toBeVisible();
   await expect(page.locator("#writing")).toBeVisible();

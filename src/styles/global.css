@@ -103,6 +103,10 @@ body {
   line-height: 0.86;
 }
 
+.hero h1 span {
+  display: block;
+}
+
 .hero-role {
   margin: 2rem 0 0;
   color: var(--color-accent);
@@ -145,6 +149,10 @@ body {
 .button-primary {
   background: var(--color-accent);
   color: #0b0c10;
+}
+
+:root[data-theme="light"] .button-primary {
+  color: #fff;
 }
 
 .text-link {
