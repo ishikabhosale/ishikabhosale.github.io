@@ -21,6 +21,11 @@ const dictionary = getDictionary(locale);
         dictionary["footer.rss"]
       }</a
     >
-    <span class="footer-credit">{dictionary["footer.credit"]}</span>
+    <a
+      class="footer-credit"
+      href={SITE.assets.serverRack.source}
+      target="_blank"
+      rel="noreferrer">{dictionary["footer.credit"]}</a
+    >
   </nav>
 </footer>

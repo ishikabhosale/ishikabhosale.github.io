@@ -166,6 +166,46 @@ body {
   aspect-ratio: 1.15;
 }
 
+.server-rack-hero,
+.server-rack-interactive,
+.server-rack-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.server-rack-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.server-rack-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.server-rack-interactive {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.server-rack-hero[data-rack-mode="interactive"] .server-rack-poster {
+  opacity: 0;
+}
+
+.server-rack-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .model-caption {
   position: absolute;
   right: 0;

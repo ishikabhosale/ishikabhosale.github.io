@@ -1,0 +1,67 @@
+---
+import ServerRackScene from "./ServerRackScene";
+
+interface Props {
+  alt: string;
+}
+
+const { alt } = Astro.props;
+---
+
+<div class="server-rack-hero" data-rack-hero>
+  <img
+    class="server-rack-poster"
+    src="/images/server-rack-poster.webp"
+    alt={alt}
+    width="720"
+    height="620"
+    decoding="async"
+    fetchpriority="high"
+  />
+  <div class="server-rack-interactive" data-rack-interactive hidden>
+    <ServerRackScene client:media="(min-width: 760px) and (pointer: fine)" />
+  </div>
+</div>
+
+<script>
+  import { getRenderPolicy } from "./render-policy";
+
+  const hero = document.querySelector<HTMLElement>("[data-rack-hero]");
+  const interactive = hero?.querySelector<HTMLElement>(
+    "[data-rack-interactive]",
+  );
+
+  if (hero && interactive) {
+    const showPoster = () => {
+      hero.dataset.rackMode = "poster";
+      interactive.hidden = true;
+    };
+
+    new MutationObserver(() => {
+      if (interactive.querySelector("[data-rack-load-error]")) showPoster();
+    }).observe(interactive, { childList: true, subtree: true });
+
+    const canvas = document.createElement("canvas");
+    const webgl = Boolean(
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl"),
+    );
+    const connection = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection;
+    const policy = getRenderPolicy({
+      reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)")
+        .matches,
+      saveData: connection?.saveData === true,
+      pointer: window.matchMedia("(pointer: fine)").matches ? "fine" : "coarse",
+      viewportWidth: window.innerWidth,
+      webgl,
+    });
+
+    if (policy === "interactive") {
+      interactive.hidden = false;
+      hero.dataset.rackMode = "interactive";
+    } else {
+      showPoster();
+    }
+  }
+</script>

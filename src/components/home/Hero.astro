@@ -1,6 +1,7 @@
 ---
 import { ArrowRight } from "@lucide/astro";
 import { getDictionary, type Locale } from "../../i18n/config";
+import ServerRackHero from "../three/ServerRackHero.astro";
 
 interface Props {
   locale: Locale;
@@ -34,7 +35,7 @@ const dictionary = getDictionary(locale);
       data-model-stage
       aria-label={dictionary["hero.interaction"]}
     >
-      <slot name="model" />
+      <ServerRackHero alt={dictionary["hero.interaction"]} />
     </div>
     <p class="model-caption">{dictionary["hero.interaction"]}</p>
   </div>
