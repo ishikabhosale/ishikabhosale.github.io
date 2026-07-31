@@ -8,8 +8,9 @@ interface Props {
 
 const { locale, pathname } = Astro.props;
 const dictionary = getDictionary(locale);
-const englishPath = localizedPath(pathname, "en");
-const japanesePath = localizedPath(pathname, "ja");
+const switchPath = /^\/404(?:\.html|\/$)/.test(pathname) ? "/" : pathname;
+const englishPath = localizedPath(switchPath, "en");
+const japanesePath = localizedPath(switchPath, "ja");
 ---
 
 <nav class="language-switch" aria-label="Language">

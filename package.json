@@ -11,6 +11,8 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
+    "test:links": "node scripts/check-internal-links.mjs",
+    "verify": "npm run format:check && npm run test:unit && npm run build && npm run test:links",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

@@ -47,7 +47,12 @@ const pathname = Astro.url.pathname;
     <meta name="twitter:image" content={imageUrl} />
     <title>{pageTitle}</title>
     <script is:inline>
-      const storedTheme = localStorage.getItem("portfolio-theme");
+      let storedTheme = null;
+      try {
+        storedTheme = localStorage.getItem("portfolio-theme");
+      } catch {
+        storedTheme = null;
+      }
       const systemTheme = window.matchMedia("(prefers-color-scheme: light)")
         .matches
         ? "light"
