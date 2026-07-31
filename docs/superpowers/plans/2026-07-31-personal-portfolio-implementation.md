@@ -121,7 +121,7 @@ Use this package manifest:
 }
 ~~~
 
-Configure Astro for static output, React, sitemap generation, and <code>site: "https://ishikabhosale.github.io"</code>. Configure Vitest with the <code>happy-dom</code> environment and Playwright with <code>baseURL: "http://127.0.0.1:4321"</code> plus a web server command of <code>npm run dev -- --host 127.0.0.1</code>.
+Configure Astro for static output, React, sitemap generation, and <code>site: "https://ishikabhosale.github.io"</code>. Configure Vitest through Astro’s <code>getViteConfig()</code> helper with the <code>node</code> environment so server-only content APIs resolve; individual browser-like unit tests may opt into <code>happy-dom</code> with a file directive. Configure Playwright with <code>baseURL: "http://127.0.0.1:4321"</code> plus a web server command of <code>npm run dev -- --host 127.0.0.1</code>.
 
 - [ ] **Step 2: Install and lock dependencies**
 
