@@ -34,7 +34,12 @@ const dictionary = getDictionary(locale);
               {entry.organization} · {entry.location}
             </p>
             <p>{entry.detail}</p>
-            <ul class="tag-list" aria-label="Skills">
+            <ul class="experience-highlights">
+              {entry.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+            <ul class="tag-list" aria-label={dictionary["experience.skills"]}>
               {entry.skills.map((skill) => (
                 <li>{skill}</li>
               ))}

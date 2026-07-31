@@ -338,6 +338,16 @@ body {
   margin: 0.65rem 0 0;
 }
 
+.experience-highlights {
+  display: grid;
+  gap: 0.55rem;
+  max-width: 48rem;
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
 .experience-entry .experience-organization {
   color: var(--color-accent);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -346,6 +356,81 @@ body {
 
 .tag-list {
   margin: 1rem 0 0;
+}
+
+.resume-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--color-line);
+  border-left: 1px solid var(--color-line);
+}
+
+.resume-panel {
+  min-height: 13rem;
+  padding: 1.5rem;
+  border-right: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.resume-panel-wide {
+  grid-column: 1 / -1;
+  min-height: auto;
+}
+
+.resume-label,
+.resume-meta {
+  color: var(--color-accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.resume-panel h3 {
+  margin: 2.2rem 0 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.resume-panel p:not(.resume-label):not(.resume-meta) {
+  max-width: 42rem;
+  margin: 0.55rem 0 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.resume-meta {
+  margin-top: 1.25rem !important;
+  text-transform: none;
+}
+
+.resume-skill-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.resume-skill-group h3 {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+}
+
+.resume-certifications {
+  margin: 1.75rem 0 0 !important;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.resume-certifications span {
+  margin-right: 0.65rem;
+  color: var(--color-accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
 }
 
 .journal-section {
@@ -994,6 +1079,8 @@ body {
 
   .section-heading,
   .experience-entry,
+  .resume-details-grid,
+  .resume-skill-groups,
   .journal-section,
   .about-section,
   .article-layout {
@@ -1011,6 +1098,10 @@ body {
 
   .work-grid {
     grid-template-columns: 1fr;
+  }
+
+  .resume-panel-wide {
+    grid-column: auto;
   }
 
   .journal-row {
