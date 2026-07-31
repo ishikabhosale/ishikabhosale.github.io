@@ -1,0 +1,98 @@
+---
+import { Menu, X } from "@lucide/astro";
+import { SITE } from "../config/site";
+import { getDictionary, localizedPath, type Locale } from "../i18n/config";
+import LanguageSwitch from "./LanguageSwitch.astro";
+import ThemeSwitch from "./ThemeSwitch.astro";
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const dictionary = getDictionary(locale);
+const homePath = localizedPath("/", locale);
+const navItems = [
+  ["nav.work", "#work"],
+  ["nav.experience", "#experience"],
+  ["nav.writing", "#writing"],
+  ["nav.about", "#about"],
+] as const;
+---
+
+<header class="site-header">
+  <a
+    class="brand"
+    href={homePath}
+    aria-label={`${SITE.name} — ${dictionary["site.location"]}`}
+  >
+    <span class="brand-mark">IB</span>
+    <span aria-hidden="true">/</span>
+    <span>{dictionary["site.location"]}</span>
+  </a>
+
+  <nav class="primary-nav" aria-label="Primary">
+    {
+      navItems.map(([key, anchor]) => (
+        <a href={`${homePath}${anchor}`}>{dictionary[key]}</a>
+      ))
+    }
+  </nav>
+
+  <div class="header-controls">
+    <LanguageSwitch locale={locale} pathname={pathname} />
+    <span class="control-divider" aria-hidden="true"></span>
+    <ThemeSwitch label={dictionary["theme.label"]} />
+    <button
+      class="icon-button menu-toggle"
+      type="button"
+      data-menu-toggle
+      aria-label={dictionary["menu.open"]}
+      aria-expanded="false"
+      aria-controls="mobile-navigation"
+    >
+      <Menu
+        class="menu-icon-open"
+        size={21}
+        stroke-width="1.5"
+        aria-hidden="true"
+      />
+      <X
+        class="menu-icon-close"
+        size={21}
+        stroke-width="1.5"
+        aria-hidden="true"
+      />
+    </button>
+  </div>
+
+  <nav
+    class="mobile-nav"
+    id="mobile-navigation"
+    aria-label="Primary mobile"
+    hidden
+  >
+    {
+      navItems.map(([key, anchor]) => (
+        <a href={`${homePath}${anchor}`}>{dictionary[key]}</a>
+      ))
+    }
+    <LanguageSwitch locale={locale} pathname={pathname} />
+  </nav>
+</header>
+
+<script>
+  const toggle =
+    document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const mobileNavigation =
+    document.querySelector<HTMLElement>("#mobile-navigation");
+
+  toggle?.addEventListener("click", () => {
+    if (!mobileNavigation) return;
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+    mobileNavigation.hidden = isOpen;
+  });
+</script>

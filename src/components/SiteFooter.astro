@@ -1,0 +1,26 @@
+---
+import { Rss } from "@lucide/astro";
+import { SITE } from "../config/site";
+import { getDictionary, type Locale } from "../i18n/config";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<footer class="site-footer">
+  <p>© {new Date().getFullYear()} {SITE.name}</p>
+  <nav aria-label="Footer">
+    <a href={SITE.social.github} rel="me">{dictionary["contact.github"]}</a>
+    <a href={SITE.social.linkedin} rel="me">{dictionary["contact.linkedin"]}</a>
+    <a href="/rss.xml"
+      ><Rss size={16} stroke-width="1.5" aria-hidden="true" />{
+        dictionary["footer.rss"]
+      }</a
+    >
+    <span class="footer-credit">{dictionary["footer.credit"]}</span>
+  </nav>
+</footer>
