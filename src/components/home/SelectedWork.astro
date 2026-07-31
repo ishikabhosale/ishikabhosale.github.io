@@ -1,0 +1,55 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import type { CollectionEntry } from "astro:content";
+import { getDictionary, type Locale } from "../../i18n/config";
+import { projectPath } from "../../lib/urls";
+
+interface Props {
+  locale: Locale;
+  projects: CollectionEntry<"projects">[];
+}
+
+const { locale, projects } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<section
+  class="content-section section-frame"
+  id="work"
+  aria-labelledby="work-title"
+>
+  <div class="section-heading">
+    <p class="section-index">01</p>
+    <div>
+      <h2 id="work-title">{dictionary["work.heading"]}</h2>
+      <p>{dictionary["work.browse"]}</p>
+    </div>
+  </div>
+  <div class="work-grid">
+    {
+      projects.slice(0, 3).map((project, index) => (
+        <a
+          class={`work-card work-card-${index + 1}`}
+          href={projectPath(project.data.slug, locale)}
+        >
+          <div class="work-card-topline">
+            <span>0{index + 1}</span>
+            <ArrowUpRight size={18} stroke-width="1.5" aria-hidden="true" />
+          </div>
+          <h3>{project.data.title}</h3>
+          <p>{project.data.summary}</p>
+          <ul aria-label="Technologies">
+            {project.data.technologies.map((technology) => (
+              <li>{technology}</li>
+            ))}
+          </ul>
+        </a>
+      ))
+    }
+  </div>
+  {
+    projects.length < 3 && (
+      <p class="section-note">{dictionary["work.empty"]}</p>
+    )
+  }
+</section>

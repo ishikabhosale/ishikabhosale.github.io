@@ -1,0 +1,16 @@
+---
+import HomePage from "../../components/HomePage.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDictionary } from "../../i18n/config";
+
+const dictionary = getDictionary("ja");
+---
+
+<BaseLayout
+  title={dictionary["site.title"]}
+  description={dictionary["site.description"]}
+  canonicalPath="/ja/"
+  locale="ja"
+>
+  <HomePage locale="ja" />
+</BaseLayout>

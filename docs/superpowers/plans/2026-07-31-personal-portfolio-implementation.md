@@ -6,7 +6,7 @@
 
 **Architecture:** Astro renders the entire site statically from typed content collections and locale dictionaries. A single React Three Fiber island progressively enhances the hero with the server-rack model; every route remains readable and navigable without client JavaScript.
 
-**Tech Stack:** Node 22.12+, npm 9.6.5+, Astro 7.1.6, TypeScript 7.0.2, React 19.2.8, Three.js 0.185.1, React Three Fiber 9.6.1, Vitest 4.1.10, Playwright 1.62.1, Axe 4.12.1.
+**Tech Stack:** Node 22.12+, npm 9.6.5+, Astro 7.1.6, TypeScript 6.0.3, React 19.2.8, Three.js 0.185.1, React Three Fiber 9.6.1, Vitest 4.1.10, Playwright 1.62.1, Axe 4.12.1.
 
 ## Global Constraints
 
@@ -50,6 +50,7 @@
 ### Task 1: Establish the Astro Foundation and Quality Gates
 
 **Files:**
+
 - Create: <code>package.json</code>
 - Create: <code>astro.config.mjs</code>
 - Create: <code>tsconfig.json</code>
@@ -63,6 +64,7 @@
 - Test: <code>tests/unit/site-config.test.ts</code>
 
 **Interfaces:**
+
 - Produces: <code>SITE</code>, a readonly object containing <code>name</code>, <code>title</code>, <code>description</code>, <code>url</code>, <code>email</code>, and social URLs.
 - Produces: the commands <code>npm run dev</code>, <code>npm run check</code>, <code>npm run build</code>, <code>npm run test:unit</code>, and <code>npm run test:e2e</code>.
 
@@ -70,17 +72,17 @@
 
 Use this package manifest:
 
-~~~json
+```json
 {
   "name": "ishikabhosale.github.io",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "check": "astro check",
-    "build": "npm run check && astro build",
-    "preview": "astro preview",
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "build": "npm run check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
@@ -94,7 +96,7 @@ Use this package manifest:
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     "astro": "7.1.6",
-    "lucide-astro": "0.556.0",
+    "@lucide/astro": "1.28.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "three": "0.185.1"
@@ -111,7 +113,7 @@ Use this package manifest:
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
     "sharp": "0.35.3",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "vitest": "4.1.10"
   },
   "engines": {
@@ -119,9 +121,9 @@ Use this package manifest:
     "npm": ">=9.6.5"
   }
 }
-~~~
+```
 
-Configure Astro for static output, React, sitemap generation, and <code>site: "https://ishikabhosale.github.io"</code>. Configure Vitest with the <code>happy-dom</code> environment and Playwright with <code>baseURL: "http://127.0.0.1:4321"</code> plus a web server command of <code>npm run dev -- --host 127.0.0.1</code>.
+Configure Astro for static output, React, sitemap generation, and <code>site: "https://ishikabhosale.github.io"</code>. Configure Vitest through Astro’s <code>getViteConfig()</code> helper with the <code>node</code> environment so server-only content APIs resolve; individual browser-like unit tests may opt into <code>happy-dom</code> with a file directive. Configure Playwright with <code>baseURL: "http://127.0.0.1:4321"</code>, <code>reuseExistingServer: true</code>, and a web server command of <code>npm run dev -- --host 127.0.0.1</code>.
 
 - [ ] **Step 2: Install and lock dependencies**
 
@@ -131,7 +133,7 @@ Expected: <code>package-lock.json</code> is created and npm reports no resolutio
 
 - [ ] **Step 3: Write the failing site-config test**
 
-~~~ts
+```ts
 import { describe, expect, it } from "vitest";
 import { SITE } from "../../src/config/site";
 
@@ -142,7 +144,7 @@ describe("SITE", () => {
     expect(SITE.description).toContain("systems");
   });
 });
-~~~
+```
 
 - [ ] **Step 4: Run the test and verify the red state**
 
@@ -156,7 +158,7 @@ Create <code>SITE</code> as a readonly object with the approved name, title “S
 
 Use CSS custom properties for the approved colors:
 
-~~~css
+```css
 :root {
   --color-canvas: #0b0c10;
   --color-surface: #11131a;
@@ -167,7 +169,7 @@ Use CSS custom properties for the approved colors:
   --color-status: #8ee36b;
   --content-width: 90rem;
 }
-~~~
+```
 
 - [ ] **Step 6: Verify the foundation**
 
@@ -181,20 +183,22 @@ Expected: PASS and <code>dist/index.html</code> exists.
 
 - [ ] **Step 7: Commit**
 
-~~~bash
+```bash
 git add package.json package-lock.json astro.config.mjs tsconfig.json vitest.config.ts playwright.config.ts .prettierrc.json src tests/unit/site-config.test.ts
 git commit -m "build: establish Astro portfolio foundation"
-~~~
+```
 
 ### Task 2: Add Typed English/Japanese Interface Localization
 
 **Files:**
+
 - Create: <code>src/i18n/config.ts</code>
 - Create: <code>src/i18n/en.ts</code>
 - Create: <code>src/i18n/ja.ts</code>
 - Test: <code>tests/unit/i18n.test.ts</code>
 
 **Interfaces:**
+
 - Produces: <code>type Locale = "en" | "ja"</code>.
 - Produces: <code>getDictionary(locale: Locale): Dictionary</code>.
 - Produces: <code>localeFromPath(pathname: string): Locale</code>.
@@ -202,7 +206,7 @@ git commit -m "build: establish Astro portfolio foundation"
 
 - [ ] **Step 1: Write the failing localization tests**
 
-~~~ts
+```ts
 import { describe, expect, it } from "vitest";
 import {
   getDictionary,
@@ -231,7 +235,7 @@ describe("interface localization", () => {
     );
   });
 });
-~~~
+```
 
 - [ ] **Step 2: Run the localization tests**
 
@@ -243,7 +247,7 @@ Expected: FAIL because the i18n modules do not exist.
 
 Define a flat dictionary with keys for navigation, hero actions, section headings, article metadata, copy-link status, theme controls, menu controls, 404 content, and footer labels. Use these approved Japanese labels:
 
-~~~ts
+```ts
 export const ja = {
   "nav.work": "主な実績",
   "nav.experience": "経歴",
@@ -264,7 +268,7 @@ export const ja = {
   "notFound.title": "ページが見つかりません",
   "notFound.home": "ホームへ戻る",
 } as const;
-~~~
+```
 
 Give <code>en</code> the identical key set. Implement path normalization by removing one leading <code>/ja</code> before applying the target locale.
 
@@ -280,14 +284,15 @@ Expected: PASS with dictionary parity enforced by TypeScript.
 
 - [ ] **Step 5: Commit**
 
-~~~bash
+```bash
 git add src/i18n tests/unit/i18n.test.ts
 git commit -m "feat: add English and Japanese interface dictionaries"
-~~~
+```
 
 ### Task 3: Define Typed Writing and Project Content
 
 **Files:**
+
 - Create: <code>src/content.config.ts</code>
 - Create: <code>src/content/writing/building-a-calm-3d-portfolio.md</code>
 - Create: <code>src/content/projects/personal-portfolio.md</code>
@@ -295,12 +300,13 @@ git commit -m "feat: add English and Japanese interface dictionaries"
 - Test: <code>tests/unit/content.test.ts</code>
 
 **Interfaces:**
+
 - Produces collections named <code>writing</code> and <code>projects</code>.
 - Produces <code>getPublishedWriting()</code>, <code>getFeaturedProjects()</code>, and <code>estimateReadingMinutes(body: string)</code>.
 
 - [ ] **Step 1: Write failing pure-content tests**
 
-~~~ts
+```ts
 import { describe, expect, it } from "vitest";
 import { estimateReadingMinutes, sortByDate } from "../../src/lib/content";
 
@@ -317,7 +323,7 @@ describe("content helpers", () => {
     expect(sorted[0].publishedAt.toISOString()).toContain("2026-07-31");
   });
 });
-~~~
+```
 
 - [ ] **Step 2: Run the content tests**
 
@@ -337,7 +343,7 @@ Create one public article titled “Building a Calm 3D Portfolio with Astro” d
 
 Use this article frontmatter:
 
-~~~yaml
+```yaml
 ---
 title: "Building a Calm 3D Portfolio with Astro"
 description: "How I balanced a focused engineering portfolio with one restrained interactive 3D element."
@@ -348,7 +354,7 @@ topic: "Web Engineering"
 draft: false
 featured: true
 ---
-~~~
+```
 
 - [ ] **Step 5: Verify schemas and build-time collection loading**
 
@@ -362,14 +368,15 @@ Expected: PASS and no content-schema warnings.
 
 - [ ] **Step 6: Commit**
 
-~~~bash
+```bash
 git add src/content.config.ts src/content src/lib/content.ts tests/unit/content.test.ts
 git commit -m "feat: add typed portfolio content collections"
-~~~
+```
 
 ### Task 4: Build the Shared Shell, Theme, and Language Controls
 
 **Files:**
+
 - Create: <code>src/components/SiteHeader.astro</code>
 - Create: <code>src/components/SiteFooter.astro</code>
 - Create: <code>src/components/LanguageSwitch.astro</code>
@@ -380,6 +387,7 @@ git commit -m "feat: add typed portfolio content collections"
 - Test: <code>tests/e2e/shell.spec.ts</code>
 
 **Interfaces:**
+
 - <code>BaseLayout</code> consumes <code>locale</code>, <code>title</code>, <code>description</code>, <code>canonicalPath</code>, <code>image</code>, and <code>article</code>.
 - <code>SiteHeader</code> consumes <code>locale</code> and <code>pathname</code>.
 - Theme state uses the <code>data-theme</code> attribute and the local-storage key <code>portfolio-theme</code>.
@@ -387,12 +395,16 @@ git commit -m "feat: add typed portfolio content collections"
 
 - [ ] **Step 1: Write the failing rendered-shell test**
 
-~~~ts
+```ts
 import { expect, test } from "@playwright/test";
 
-test("renders accessible navigation and persistent controls", async ({ page }) => {
+test("renders accessible navigation and persistent controls", async ({
+  page,
+}) => {
   await page.goto("/");
-  await expect(page.getByRole("link", { name: "Skip to content" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Skip to content" }),
+  ).toBeVisible();
   await expect(page.getByRole("navigation")).toBeVisible();
   await expect(page.getByRole("link", { name: "日本語" })).toHaveAttribute(
     "href",
@@ -402,7 +414,7 @@ test("renders accessible navigation and persistent controls", async ({ page }) =
     page.getByRole("button", { name: "Switch theme" }),
   ).toBeVisible();
 });
-~~~
+```
 
 - [ ] **Step 2: Run the shell test**
 
@@ -430,14 +442,15 @@ Expected: PASS.
 
 - [ ] **Step 5: Commit**
 
-~~~bash
+```bash
 git add src/components src/layouts/BaseLayout.astro src/scripts/theme.ts src/styles/global.css tests/e2e/shell.spec.ts
 git commit -m "feat: build accessible portfolio shell"
-~~~
+```
 
 ### Task 5: Implement the Option 3 Homepage Composition
 
 **Files:**
+
 - Create: <code>src/components/home/Hero.astro</code>
 - Create: <code>src/components/home/SelectedWork.astro</code>
 - Create: <code>src/components/home/ExperienceTimeline.astro</code>
@@ -450,13 +463,14 @@ git commit -m "feat: build accessible portfolio shell"
 - Test: <code>tests/e2e/home.spec.ts</code>
 
 **Interfaces:**
+
 - Homepage components consume <code>locale: Locale</code> and typed content entries.
 - <code>Hero</code> exposes a named <code>model</code> slot for the progressive rack.
 - Section IDs are <code>work</code>, <code>experience</code>, <code>writing</code>, and <code>about</code>.
 
 - [ ] **Step 1: Write the failing homepage hierarchy test**
 
-~~~ts
+```ts
 import { expect, test } from "@playwright/test";
 
 test("presents the approved portfolio hierarchy", async ({ page }) => {
@@ -470,7 +484,7 @@ test("presents the approved portfolio hierarchy", async ({ page }) => {
   await expect(page.locator("#writing")).toBeVisible();
   await expect(page.locator("#about")).toBeVisible();
 });
-~~~
+```
 
 - [ ] **Step 2: Run the homepage test**
 
@@ -507,14 +521,15 @@ Expected: PASS.
 
 - [ ] **Step 6: Commit**
 
-~~~bash
+```bash
 git add src/components/home src/data/experience.ts src/pages/index.astro src/pages/ja/index.astro src/styles/global.css tests/e2e/home.spec.ts
 git commit -m "feat: implement Tokyo Systems Journal homepage"
-~~~
+```
 
 ### Task 6: Add the Progressive Server-Rack Hero
 
 **Files:**
+
 - Create: <code>public/models/server-rack.glb</code>
 - Create: <code>public/images/server-rack-poster.webp</code>
 - Create: <code>CREDITS.md</code>
@@ -528,13 +543,14 @@ git commit -m "feat: implement Tokyo Systems Journal homepage"
 - Test: <code>tests/e2e/model-fallback.spec.ts</code>
 
 **Interfaces:**
+
 - Produces <code>shouldEnhanceModel(input: ModelPolicyInput): boolean</code>.
 - <code>ModelPolicyInput</code> contains <code>reducedMotion</code>, <code>saveData</code>, <code>coarsePointer</code>, <code>narrowViewport</code>, and <code>webglAvailable</code>.
 - The Astro wrapper always renders the poster; the React island marks itself ready with <code>data-model-ready="true"</code>.
 
 - [ ] **Step 1: Write the failing render-policy tests**
 
-~~~ts
+```ts
 import { describe, expect, it } from "vitest";
 import { shouldEnhanceModel } from "../../src/components/three/render-policy";
 
@@ -551,10 +567,12 @@ describe("shouldEnhanceModel", () => {
     expect(shouldEnhanceModel(capable)).toBe(true);
     expect(shouldEnhanceModel({ ...capable, reducedMotion: true })).toBe(false);
     expect(shouldEnhanceModel({ ...capable, saveData: true })).toBe(false);
-    expect(shouldEnhanceModel({ ...capable, webglAvailable: false })).toBe(false);
+    expect(shouldEnhanceModel({ ...capable, webglAvailable: false })).toBe(
+      false,
+    );
   });
 });
-~~~
+```
 
 - [ ] **Step 2: Run the policy tests**
 
@@ -572,9 +590,9 @@ Use the Sketchfab “Download 3D Model” control on [(Low Poly) Server Rack](ht
 
 Extract the source into <code>/private/tmp/ishika-server-rack/</code>. Rename the archive's primary glTF scene file to <code>/private/tmp/ishika-server-rack/source.gltf</code>, keeping its sibling <code>.bin</code> and texture files beside it, then run:
 
-~~~bash
+```bash
 npx gltf-transform optimize /private/tmp/ishika-server-rack/source.gltf public/models/server-rack.glb --compress draco --texture-compress webp
-~~~
+```
 
 If the archive's primary scene is already a GLB, rename it to <code>/private/tmp/ishika-server-rack/source.glb</code> and use that exact path in the same command. Do not commit the downloaded archive or extracted source files.
 
@@ -598,7 +616,7 @@ After the scene renders locally, add <code>scripts/capture-model-poster.mjs</cod
 
 - [ ] **Step 7: Write and run the reduced-motion fallback test**
 
-~~~ts
+```ts
 import { expect, test } from "@playwright/test";
 
 test("keeps the poster and skips WebGL for reduced motion", async ({
@@ -609,7 +627,7 @@ test("keeps the poster and skips WebGL for reduced motion", async ({
   await expect(page.getByAltText("Low-poly server rack")).toBeVisible();
   await expect(page.locator("canvas")).toHaveCount(0);
 });
-~~~
+```
 
 Run: <code>npm run test:unit -- tests/unit/render-policy.test.ts</code>
 
@@ -621,14 +639,15 @@ Expected: PASS.
 
 - [ ] **Step 8: Commit**
 
-~~~bash
+```bash
 git add public/models/server-rack.glb public/images/server-rack-poster.webp CREDITS.md scripts/capture-model-poster.mjs src/components/three src/components/home/Hero.astro src/components/SiteFooter.astro tests
 git commit -m "feat: add restrained progressive server-rack hero"
-~~~
+```
 
 ### Task 7: Build Permanent Writing URLs, Article Layout, and RSS
 
 **Files:**
+
 - Create: <code>src/layouts/ArticleLayout.astro</code>
 - Create: <code>src/components/CopyLink.astro</code>
 - Create: <code>src/pages/writing/index.astro</code>
@@ -639,13 +658,14 @@ git commit -m "feat: add restrained progressive server-rack hero"
 - Test: <code>tests/e2e/writing.spec.ts</code>
 
 **Interfaces:**
+
 - Produces <code>canonicalUrl(pathname: string): string</code>.
 - Produces <code>writingPath(slug: string): string</code>.
 - Article pages receive a collection entry plus rendered <code>Content</code> and headings.
 
 - [ ] **Step 1: Write failing URL tests**
 
-~~~ts
+```ts
 import { describe, expect, it } from "vitest";
 import { canonicalUrl, writingPath } from "../../src/lib/urls";
 
@@ -662,7 +682,7 @@ describe("shareable writing URLs", () => {
     );
   });
 });
-~~~
+```
 
 - [ ] **Step 2: Run the URL tests**
 
@@ -682,10 +702,12 @@ Use <code>@astrojs/rss</code> and include only non-draft articles. Each item rec
 
 - [ ] **Step 5: Write the rendered writing test**
 
-~~~ts
+```ts
 import { expect, test } from "@playwright/test";
 
-test("publishes a permanent article URL and social metadata", async ({ page }) => {
+test("publishes a permanent article URL and social metadata", async ({
+  page,
+}) => {
   const path = "/writing/building-a-calm-3d-portfolio-with-astro/";
   await page.goto(path);
   await expect(page).toHaveURL(new RegExp(path));
@@ -701,7 +723,7 @@ test("publishes a permanent article URL and social metadata", async ({ page }) =
     /Calm 3D Portfolio/,
   );
 });
-~~~
+```
 
 - [ ] **Step 6: Verify writing and RSS**
 
@@ -719,14 +741,15 @@ Expected: PASS and <code>dist/rss.xml</code> exists.
 
 - [ ] **Step 7: Commit**
 
-~~~bash
+```bash
 git add src/layouts/ArticleLayout.astro src/components/CopyLink.astro src/pages/writing src/pages/rss.xml.ts src/lib/urls.ts tests
 git commit -m "feat: publish shareable technical writing"
-~~~
+```
 
 ### Task 8: Add Project Pages and Complete Japanese Interface Routes
 
 **Files:**
+
 - Create: <code>src/layouts/ProjectLayout.astro</code>
 - Create: <code>src/pages/work/[slug].astro</code>
 - Create: <code>src/pages/ja/writing/index.astro</code>
@@ -737,13 +760,14 @@ git commit -m "feat: publish shareable technical writing"
 - Test: <code>tests/e2e/localized-routes.spec.ts</code>
 
 **Interfaces:**
+
 - Project layout consumes a project collection entry and rendered body.
 - Japanese shells reuse the same authored entries and receive <code>locale="ja"</code>.
 - Each Japanese duplicate declares the primary English content URL as canonical.
 
 - [ ] **Step 1: Write the failing localized-route test**
 
-~~~ts
+```ts
 import { expect, test } from "@playwright/test";
 
 test("switches interface language without translating authored content", async ({
@@ -756,7 +780,7 @@ test("switches interface language without translating authored content", async (
   );
   await expect(page.locator('html[lang="ja"]')).toHaveCount(1);
 });
-~~~
+```
 
 - [ ] **Step 2: Run the localized-route test**
 
@@ -782,14 +806,15 @@ Expected: PASS with English and Japanese output trees.
 
 - [ ] **Step 5: Commit**
 
-~~~bash
+```bash
 git add src/layouts/ProjectLayout.astro src/pages/work src/pages/ja src/components tests/e2e/localized-routes.spec.ts
 git commit -m "feat: add project pages and Japanese interface routes"
-~~~
+```
 
 ### Task 9: Finish SEO, Accessibility, 404, and GitHub Pages Deployment
 
 **Files:**
+
 - Create: <code>src/pages/404.astro</code>
 - Create: <code>public/robots.txt</code>
 - Create: <code>public/social-card.png</code>
@@ -803,12 +828,13 @@ git commit -m "feat: add project pages and Japanese interface routes"
 - Modify: <code>README.md</code>
 
 **Interfaces:**
+
 - Adds <code>npm run check:links</code> and <code>npm run verify</code>.
 - Deployment consumes <code>dist/</code> and publishes through the <code>github-pages</code> environment.
 
 - [ ] **Step 1: Write the failing accessibility and metadata tests**
 
-~~~ts
+```ts
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
@@ -832,7 +858,7 @@ test("404 offers a route home", async ({ page }) => {
     "/",
   );
 });
-~~~
+```
 
 Run: <code>npm run test:e2e -- tests/e2e/accessibility.spec.ts</code>
 
@@ -848,14 +874,14 @@ Implement English 404 output that detects a remembered Japanese interface prefer
 
 Write <code>scripts/check-internal-links.mjs</code> using <code>node:fs/promises</code> and <code>node:path</code>. Recursively collect <code>dist/**/*.html</code>; extract each double- or single-quoted <code>href</code>; ignore fragments, external origins, <code>mailto:</code>, and <code>tel:</code>; remove query strings and fragments; map <code>/path/</code> to <code>dist/path/index.html</code> and <code>/asset.ext</code> to <code>dist/asset.ext</code>; collect missing targets; print each source/target pair to stderr; and set <code>process.exitCode = 1</code> when any are absent. Add:
 
-~~~json
+```json
 {
   "scripts": {
     "check:links": "node scripts/check-internal-links.mjs",
     "verify": "npm run format:check && npm run test:unit && npm run build && npm run check:links && npm run test:e2e"
   }
 }
-~~~
+```
 
 Merge these keys into the existing scripts object; do not replace the earlier commands.
 
@@ -898,10 +924,10 @@ Update <code>README.md</code> with:
 
 - [ ] **Step 8: Final commit**
 
-~~~bash
+```bash
 git add .github public src/pages/404.astro scripts package.json package-lock.json README.md tests
 git commit -m "feat: complete accessible GitHub Pages portfolio"
-~~~
+```
 
 ## Final Verification Checklist
 

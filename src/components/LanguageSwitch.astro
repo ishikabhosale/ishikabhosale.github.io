@@ -1,0 +1,24 @@
+---
+import { getDictionary, localizedPath, type Locale } from "../i18n/config";
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const dictionary = getDictionary(locale);
+const switchPath = /^\/404(?:\.html|\/$)/.test(pathname) ? "/" : pathname;
+const englishPath = localizedPath(switchPath, "en");
+const japanesePath = localizedPath(switchPath, "ja");
+---
+
+<nav class="language-switch" aria-label="Language">
+  <a href={englishPath} aria-current={locale === "en" ? "page" : undefined}
+    >{dictionary["language.english"]}</a
+  >
+  <span aria-hidden="true">·</span>
+  <a href={japanesePath} aria-current={locale === "ja" ? "page" : undefined}
+    >{dictionary["language.japanese"]}</a
+  >
+</nav>

@@ -1,0 +1,31 @@
+---
+import { Moon, Sun } from "@lucide/astro";
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<button
+  class="icon-button theme-switch"
+  type="button"
+  data-theme-toggle
+  aria-label={label}
+  aria-pressed="false"
+  title={label}
+>
+  <Sun
+    class="theme-icon theme-icon-light"
+    size={20}
+    stroke-width="1.5"
+    aria-hidden="true"
+  />
+  <Moon
+    class="theme-icon theme-icon-dark"
+    size={20}
+    stroke-width="1.5"
+    aria-hidden="true"
+  />
+</button>

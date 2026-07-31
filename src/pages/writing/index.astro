@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPublishedWriting, estimateReadingMinutes } from "../../lib/content";
+import { writingPath } from "../../lib/urls";
+
+const posts = await getPublishedWriting();
+---
+
+<BaseLayout
+  title="Journal"
+  description="Technical notes on systems, cloud infrastructure, and practical engineering."
+  canonicalPath="/writing/"
+>
+  <section class="listing-page section-frame" aria-labelledby="writing-title">
+    <header class="listing-header">
+      <p class="eyebrow">Journal</p>
+      <h1 id="writing-title">Writing</h1>
+      <p>
+        Notes on systems, cloud infrastructure, operating systems, and the work
+        around them.
+      </p>
+    </header>
+    <div class="listing-stack">
+      {
+        posts.map((post) => (
+          <a class="listing-row" href={writingPath(post.data.slug)}>
+            <div>
+              <p class="listing-meta">{post.data.topic}</p>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+            </div>
+            <div class="listing-side">
+              <time datetime={post.data.publishedAt.toISOString()}>
+                {post.data.publishedAt.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+              <span>{estimateReadingMinutes(post.body ?? "")} min read →</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from "astro:content";
+import CopyLink from "../components/CopyLink.astro";
+import { estimateReadingMinutes } from "../lib/content";
+import { writingPath } from "../lib/urls";
+import { getDictionary, type Locale } from "../i18n/config";
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  locale: Locale;
+  headings: { depth: number; slug: string; text: string }[];
+  previous?: CollectionEntry<"writing">;
+  next?: CollectionEntry<"writing">;
+}
+
+const { post, locale, headings, previous, next } = Astro.props;
+const dictionary = getDictionary(locale);
+const date = post.data.publishedAt.toLocaleDateString(
+  locale === "ja" ? "ja-JP" : "en-US",
+  {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  },
+);
+const minutes = estimateReadingMinutes(post.body ?? "");
+---
+
+<article class="article-page section-frame">
+  <header class="article-header">
+    <a class="back-link" href={locale === "ja" ? "/ja/writing/" : "/writing/"}>
+      ← {dictionary["writing.heading"]}
+    </a>
+    <p class="eyebrow">{post.data.topic}</p>
+    <h1>{post.data.title}</h1>
+    <p class="article-description">{post.data.description}</p>
+    <div class="article-meta">
+      <time datetime={post.data.publishedAt.toISOString()}>{date}</time>
+      <span aria-hidden="true">·</span>
+      <span>{minutes} {dictionary["writing.readTime"]}</span>
+      <CopyLink locale={locale} />
+    </div>
+  </header>
+
+  <div class="article-layout">
+    {
+      headings.length > 0 && (
+        <aside class="article-toc" aria-label={dictionary["article.contents"]}>
+          <p class="section-index">{dictionary["article.contents"]}</p>
+          <ol>
+            {headings
+              .filter((heading) => heading.depth <= 2)
+              .map((heading) => (
+                <li class:list={{ "toc-depth-3": heading.depth === 3 }}>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
+          </ol>
+        </aside>
+      )
+    }
+    <div class="article-body"><slot /></div>
+  </div>
+
+  <nav class="article-pagination" aria-label="Article navigation">
+    {
+      previous ? (
+        <a href={writingPath(previous.data.slug, locale)}>
+          <span>{dictionary["article.previous"]}</span>
+          <strong>{previous.data.title}</strong>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    {
+      next && (
+        <a class="article-next" href={writingPath(next.data.slug, locale)}>
+          <span>{dictionary["article.next"]}</span>
+          <strong>{next.data.title}</strong>
+        </a>
+      )
+    }
+  </nav>
+</article>

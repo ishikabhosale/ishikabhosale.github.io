@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getDictionary } from "../i18n/config";
+
+const dictionary = getDictionary("en");
+---
+
+<BaseLayout
+  title={dictionary["notFound.title"]}
+  description={dictionary["notFound.body"]}
+  canonicalPath="/"
+>
+  <section
+    class="not-found-page section-frame"
+    aria-labelledby="not-found-title"
+  >
+    <p class="eyebrow">404</p>
+    <h1 id="not-found-title">{dictionary["notFound.title"]}</h1>
+    <p>{dictionary["notFound.body"]}</p>
+    <a class="button button-primary" href="/">{dictionary["notFound.home"]} →</a
+    >
+  </section>
+</BaseLayout>

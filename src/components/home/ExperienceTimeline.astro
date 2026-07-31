@@ -1,0 +1,47 @@
+---
+import type { Locale } from "../../i18n/config";
+import { getDictionary } from "../../i18n/config";
+import { experience } from "../../data/experience";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<section
+  class="content-section section-frame"
+  id="experience"
+  aria-labelledby="experience-title"
+>
+  <div class="section-heading">
+    <p class="section-index">02</p>
+    <div>
+      <h2 id="experience-title">{dictionary["experience.heading"]}</h2>
+      <p>{dictionary["experience.location"]}</p>
+    </div>
+  </div>
+  <div class="experience-list">
+    {
+      experience.map((entry) => (
+        <article class="experience-entry">
+          <p class="experience-period">{entry.period}</p>
+          <div>
+            <h3>{entry.title}</h3>
+            <p class="experience-organization">
+              {entry.organization} · {entry.location}
+            </p>
+            <p>{entry.detail}</p>
+            <ul class="tag-list" aria-label="Skills">
+              {entry.skills.map((skill) => (
+                <li>{skill}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
