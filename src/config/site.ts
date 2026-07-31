@@ -2,9 +2,9 @@ export const SITE = {
   name: "Ishika Bhosale",
   title: "Systems & Cloud Engineer",
   description:
-    "A portfolio about reliable systems, cloud infrastructure, operating systems, and practical engineering notes.",
+    "Ishika Bhosale is a software engineer working across AI, systems programming, and distributed architecture.",
   url: "https://ishikabhosale.github.io",
-  email: null as string | null,
+  email: "ishikabhosale9@gmail.com" as string | null,
   social: {
     github: "https://github.com/ishikabhosale",
     linkedin: "https://www.linkedin.com/in/ishika-bhosale-250965177/",

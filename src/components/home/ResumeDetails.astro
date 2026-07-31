@@ -1,0 +1,81 @@
+---
+import {
+  certifications,
+  education,
+  resumeProject,
+  skillGroups,
+} from "../../data/resume";
+import { getDictionary, type Locale } from "../../i18n/config";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<section
+  class="content-section section-frame resume-details-section"
+  id="background"
+  aria-labelledby="resume-title"
+>
+  <div class="section-heading">
+    <p class="section-index">03</p>
+    <div>
+      <h2 id="resume-title">{dictionary["resume.heading"]}</h2>
+      <p>{dictionary["resume.subheading"]}</p>
+    </div>
+  </div>
+  <div class="resume-details-grid">
+    <article class="resume-panel">
+      <p class="resume-label">{dictionary["resume.education"]}</p>
+      <h3>{education.degree}</h3>
+      <p>{education.institution}</p>
+      <p class="resume-meta">{education.period}</p>
+    </article>
+    <article class="resume-panel">
+      <p class="resume-label">{dictionary["resume.project"]}</p>
+      <h3>{resumeProject.title}</h3>
+      <p>{resumeProject.context}</p>
+      <p>{resumeProject.description}</p>
+      <ul class="tag-list" aria-label={dictionary["resume.technologies"]}>
+        {resumeProject.technologies.map((technology) => <li>{technology}</li>)}
+      </ul>
+    </article>
+    <article class="resume-panel resume-panel-wide">
+      <p class="resume-label">{dictionary["resume.skills"]}</p>
+      <div class="resume-skill-groups">
+        {
+          skillGroups.map((group) => (
+            <div class="resume-skill-group">
+              <h3>
+                {
+                  dictionary[
+                    `resume.skill.${group.id}` as keyof typeof dictionary
+                  ]
+                }
+              </h3>
+              <ul
+                class="tag-list"
+                aria-label={
+                  dictionary[
+                    `resume.skill.${group.id}` as keyof typeof dictionary
+                  ]
+                }
+              >
+                {group.skills.map((skill) => (
+                  <li>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <p class="resume-certifications">
+        <span>{dictionary["resume.certifications"]}</span>
+        {certifications.join(" · ")}
+      </p>
+    </article>
+  </div>
+</section>

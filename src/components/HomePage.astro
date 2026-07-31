@@ -3,6 +3,7 @@ import AboutContact from "./home/AboutContact.astro";
 import ExperienceTimeline from "./home/ExperienceTimeline.astro";
 import Hero from "./home/Hero.astro";
 import JournalPreview from "./home/JournalPreview.astro";
+import ResumeDetails from "./home/ResumeDetails.astro";
 import SelectedWork from "./home/SelectedWork.astro";
 import type { Locale } from "../i18n/config";
 import { getFeaturedProjects, getPublishedWriting } from "../lib/content";
@@ -27,5 +28,6 @@ const latestArticlePath = writing[0]
 </Hero>
 <SelectedWork locale={locale} projects={projects} />
 <ExperienceTimeline locale={locale} />
+<ResumeDetails locale={locale} />
 <JournalPreview locale={locale} entries={writing} />
 <AboutContact locale={locale} />

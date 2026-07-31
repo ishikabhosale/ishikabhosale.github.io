@@ -8,7 +8,7 @@ describe("SITE", () => {
     expect(SITE.description).toContain("systems");
   });
 
-  it("does not publish an unconfirmed email address", () => {
-    expect(SITE.email).toBeNull();
+  it("publishes the resume contact email", () => {
+    expect(SITE.email).toBe("ishikabhosale9@gmail.com");
   });
 });
