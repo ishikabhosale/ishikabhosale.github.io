@@ -2,6 +2,9 @@ import type { Dictionary } from "./en";
 
 export const ja = {
   "site.location": "東京",
+  "site.title": "システム・クラウドエンジニア",
+  "site.description":
+    "信頼性の高いシステム、クラウドインフラ、オペレーティングシステム、実践的な技術メモを紹介するポートフォリオです。",
   "nav.work": "主な実績",
   "nav.experience": "経歴",
   "nav.writing": "記事",
@@ -23,6 +26,9 @@ export const ja = {
   "writing.browse": "すべての記事",
   "writing.empty": "新しい記事を準備中です。",
   "writing.readTime": "分で読めます",
+  "writing.pageTitle": "記事",
+  "writing.pageDescription":
+    "システム、クラウドインフラ、オペレーティングシステムについての技術メモです。",
   "about.heading": "プロフィール",
   "about.body":
     "信頼性の高いインフラ、オペレーティングシステム、明快な技術文章に関心を持つシステム・クラウドエンジニアです。",
@@ -37,6 +43,8 @@ export const ja = {
   "article.next": "次の記事",
   "project.repository": "リポジトリ",
   "project.demo": "デモを見る",
+  "project.back": "すべてのプロジェクト",
+  "project.technologies": "使用技術",
   "theme.label": "テーマを切り替える",
   "theme.dark": "ダークテーマを使う",
   "theme.light": "ライトテーマを使う",

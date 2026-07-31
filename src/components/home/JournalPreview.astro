@@ -3,6 +3,7 @@ import { ArrowRight } from "@lucide/astro";
 import type { CollectionEntry } from "astro:content";
 import { getDictionary, type Locale } from "../../i18n/config";
 import { estimateReadingMinutes } from "../../lib/content";
+import { writingPath } from "../../lib/urls";
 
 interface Props {
   locale: Locale;
@@ -32,7 +33,7 @@ const dateLocale = locale === "ja" ? "ja-JP" : "en-US";
       entries.slice(0, 3).map((entry, index) => (
         <a
           class={`journal-row journal-row-${index + 1}`}
-          href={`${locale === "ja" ? "/ja" : ""}/writing/${entry.data.slug}/`}
+          href={writingPath(entry.data.slug, locale)}
         >
           <div class="journal-meta">
             <time datetime={entry.data.publishedAt.toISOString()}>

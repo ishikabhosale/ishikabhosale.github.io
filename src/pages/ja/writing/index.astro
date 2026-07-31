@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getDictionary } from "../../../i18n/config";
+import {
+  getPublishedWriting,
+  estimateReadingMinutes,
+} from "../../../lib/content";
+import { writingPath } from "../../../lib/urls";
+
+const dictionary = getDictionary("ja");
+const posts = await getPublishedWriting();
+---
+
+<BaseLayout
+  title={dictionary["writing.pageTitle"]}
+  description={dictionary["writing.pageDescription"]}
+  canonicalPath="/ja/writing/"
+  locale="ja"
+>
+  <section class="listing-page section-frame" aria-labelledby="writing-title">
+    <header class="listing-header">
+      <p class="eyebrow">Journal</p>
+      <h1 id="writing-title">{dictionary["writing.pageTitle"]}</h1>
+      <p>{dictionary["writing.pageDescription"]}</p>
+    </header>
+    <div class="listing-stack">
+      {
+        posts.map((post) => (
+          <a class="listing-row" href={writingPath(post.data.slug, "ja")}>
+            <div>
+              <p class="listing-meta">{post.data.topic}</p>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+            </div>
+            <div class="listing-side">
+              <time datetime={post.data.publishedAt.toISOString()}>
+                {post.data.publishedAt.toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+              <span>
+                {estimateReadingMinutes(post.body ?? "")}{" "}
+                {dictionary["writing.readTime"]}
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

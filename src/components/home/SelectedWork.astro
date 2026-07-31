@@ -2,6 +2,7 @@
 import { ArrowUpRight } from "@lucide/astro";
 import type { CollectionEntry } from "astro:content";
 import { getDictionary, type Locale } from "../../i18n/config";
+import { projectPath } from "../../lib/urls";
 
 interface Props {
   locale: Locale;
@@ -29,7 +30,7 @@ const dictionary = getDictionary(locale);
       projects.slice(0, 3).map((project, index) => (
         <a
           class={`work-card work-card-${index + 1}`}
-          href={`/work/${project.data.slug}/`}
+          href={projectPath(project.data.slug, locale)}
         >
           <div class="work-card-topline">
             <span>0{index + 1}</span>

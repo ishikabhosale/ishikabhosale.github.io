@@ -48,6 +48,8 @@ const navItems = [
       class="icon-button menu-toggle"
       type="button"
       data-menu-toggle
+      data-open-label={dictionary["menu.open"]}
+      data-close-label={dictionary["menu.close"]}
       aria-label={dictionary["menu.open"]}
       aria-expanded="false"
       aria-controls="mobile-navigation"
@@ -92,7 +94,12 @@ const navItems = [
     if (!mobileNavigation) return;
     const isOpen = toggle.getAttribute("aria-expanded") === "true";
     toggle.setAttribute("aria-expanded", String(!isOpen));
-    toggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+    toggle.setAttribute(
+      "aria-label",
+      isOpen
+        ? (toggle.dataset.openLabel ?? "Open menu")
+        : (toggle.dataset.closeLabel ?? "Close menu"),
+    );
     mobileNavigation.hidden = isOpen;
   });
 </script>

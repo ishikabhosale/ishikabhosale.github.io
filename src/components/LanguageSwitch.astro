@@ -8,18 +8,16 @@ interface Props {
 
 const { locale, pathname } = Astro.props;
 const dictionary = getDictionary(locale);
-const targetLocale = locale === "en" ? "ja" : "en";
-const targetPath = localizedPath(pathname, targetLocale);
+const englishPath = localizedPath(pathname, "en");
+const japanesePath = localizedPath(pathname, "ja");
 ---
 
 <nav class="language-switch" aria-label="Language">
-  <a
-    href={locale === "en" ? pathname : localizedPath(pathname, "en")}
-    aria-current={locale === "en" ? "page" : undefined}
+  <a href={englishPath} aria-current={locale === "en" ? "page" : undefined}
     >{dictionary["language.english"]}</a
   >
   <span aria-hidden="true">·</span>
-  <a href={targetPath} aria-current={locale === "ja" ? "page" : undefined}
+  <a href={japanesePath} aria-current={locale === "ja" ? "page" : undefined}
     >{dictionary["language.japanese"]}</a
   >
 </nav>

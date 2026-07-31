@@ -1,5 +1,8 @@
 export const en = {
   "site.location": "Tokyo",
+  "site.title": "Systems & Cloud Engineer",
+  "site.description":
+    "A portfolio about reliable systems, cloud infrastructure, operating systems, and practical engineering notes.",
   "nav.work": "Selected Work",
   "nav.experience": "Experience",
   "nav.writing": "Journal",
@@ -20,6 +23,9 @@ export const en = {
   "writing.browse": "Browse all writing",
   "writing.empty": "New notes are on the way.",
   "writing.readTime": "min read",
+  "writing.pageTitle": "Writing",
+  "writing.pageDescription":
+    "Notes on systems, cloud infrastructure, operating systems, and the work around them.",
   "about.heading": "About",
   "about.body":
     "I’m a systems and cloud engineer interested in dependable infrastructure, operating systems, and clear technical writing.",
@@ -34,6 +40,8 @@ export const en = {
   "article.next": "Next article",
   "project.repository": "Repository",
   "project.demo": "Live demo",
+  "project.back": "All projects",
+  "project.technologies": "Technologies",
   "theme.label": "Switch theme",
   "theme.dark": "Use dark theme",
   "theme.light": "Use light theme",

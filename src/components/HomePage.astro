@@ -1,0 +1,31 @@
+---
+import AboutContact from "./home/AboutContact.astro";
+import ExperienceTimeline from "./home/ExperienceTimeline.astro";
+import Hero from "./home/Hero.astro";
+import JournalPreview from "./home/JournalPreview.astro";
+import SelectedWork from "./home/SelectedWork.astro";
+import type { Locale } from "../i18n/config";
+import { getFeaturedProjects, getPublishedWriting } from "../lib/content";
+import { writingPath } from "../lib/urls";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const projects = await getFeaturedProjects();
+const writing = await getPublishedWriting();
+const latestArticlePath = writing[0]
+  ? writingPath(writing[0].data.slug, locale)
+  : locale === "ja"
+    ? "/ja/writing/"
+    : "/writing/";
+---
+
+<Hero locale={locale} latestArticlePath={latestArticlePath}>
+  <div slot="model"></div>
+</Hero>
+<SelectedWork locale={locale} projects={projects} />
+<ExperienceTimeline locale={locale} />
+<JournalPreview locale={locale} entries={writing} />
+<AboutContact locale={locale} />

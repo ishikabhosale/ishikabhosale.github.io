@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDictionary } from "../../i18n/config";
+import { getFeaturedProjects } from "../../lib/content";
+import { projectPath } from "../../lib/urls";
+
+const dictionary = getDictionary("en");
+const projects = await getFeaturedProjects();
+---
+
+<BaseLayout
+  title={dictionary["work.heading"]}
+  description="Selected engineering projects and systems work."
+  canonicalPath="/work/"
+>
+  <section class="listing-page section-frame" aria-labelledby="projects-title">
+    <header class="listing-header">
+      <p class="eyebrow">01</p>
+      <h1 id="projects-title">{dictionary["work.heading"]}</h1>
+      <p>Selected engineering projects, experiments, and systems work.</p>
+    </header>
+    <div class="listing-stack">
+      {
+        projects.map((project, index) => (
+          <a class="listing-row" href={projectPath(project.data.slug)}>
+            <div>
+              <p class="listing-meta">
+                0{index + 1} · {project.data.year ?? ""}
+              </p>
+              <h2>{project.data.title}</h2>
+              <p>{project.data.summary}</p>
+            </div>
+            <div class="listing-side">
+              <span>{project.data.technologies.join(" · ")}</span>
+              <span>View project →</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

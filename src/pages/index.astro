@@ -1,25 +1,15 @@
 ---
+import HomePage from "../components/HomePage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import AboutContact from "../components/home/AboutContact.astro";
-import ExperienceTimeline from "../components/home/ExperienceTimeline.astro";
-import Hero from "../components/home/Hero.astro";
-import JournalPreview from "../components/home/JournalPreview.astro";
-import SelectedWork from "../components/home/SelectedWork.astro";
-import { getFeaturedProjects, getPublishedWriting } from "../lib/content";
+import { getDictionary } from "../i18n/config";
 
-const projects = await getFeaturedProjects();
-const writing = await getPublishedWriting();
-const latestArticlePath = writing[0]
-  ? `/writing/${writing[0].data.slug}/`
-  : "/writing/";
+const dictionary = getDictionary("en");
 ---
 
-<BaseLayout canonicalPath="/">
-  <Hero locale="en" latestArticlePath={latestArticlePath}>
-    <div slot="model"></div>
-  </Hero>
-  <SelectedWork locale="en" projects={projects} />
-  <ExperienceTimeline locale="en" />
-  <JournalPreview locale="en" entries={writing} />
-  <AboutContact locale="en" />
+<BaseLayout
+  title={dictionary["site.title"]}
+  description={dictionary["site.description"]}
+  canonicalPath="/"
+>
+  <HomePage locale="en" />
 </BaseLayout>
