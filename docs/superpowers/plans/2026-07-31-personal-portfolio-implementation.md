@@ -6,7 +6,7 @@
 
 **Architecture:** Astro renders the entire site statically from typed content collections and locale dictionaries. A single React Three Fiber island progressively enhances the hero with the server-rack model; every route remains readable and navigable without client JavaScript.
 
-**Tech Stack:** Node 22.12+, npm 9.6.5+, Astro 7.1.6, TypeScript 7.0.2, React 19.2.8, Three.js 0.185.1, React Three Fiber 9.6.1, Vitest 4.1.10, Playwright 1.62.1, Axe 4.12.1.
+**Tech Stack:** Node 22.12+, npm 9.6.5+, Astro 7.1.6, TypeScript 6.0.3, React 19.2.8, Three.js 0.185.1, React Three Fiber 9.6.1, Vitest 4.1.10, Playwright 1.62.1, Axe 4.12.1.
 
 ## Global Constraints
 
@@ -77,10 +77,10 @@ Use this package manifest:
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "check": "astro check",
-    "build": "npm run check && astro build",
-    "preview": "astro preview",
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "build": "npm run check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
@@ -94,7 +94,7 @@ Use this package manifest:
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     "astro": "7.1.6",
-    "lucide-astro": "0.556.0",
+    "@lucide/astro": "1.28.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "three": "0.185.1"
@@ -111,7 +111,7 @@ Use this package manifest:
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
     "sharp": "0.35.3",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "vitest": "4.1.10"
   },
   "engines": {

@@ -1,0 +1,35 @@
+---
+import { SITE } from "../config/site";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  canonicalPath = "/",
+} = Astro.props;
+const pageTitle = title === SITE.title ? `${SITE.name} — ${title}` : `${title} — ${SITE.name}`;
+const canonicalUrl = new URL(canonicalPath, SITE.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>
