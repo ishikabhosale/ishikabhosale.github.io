@@ -92,14 +92,17 @@ const navItems = [
 
   toggle?.addEventListener("click", () => {
     if (!mobileNavigation) return;
+
     const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!isOpen));
+    const nextOpen = !isOpen;
+
+    toggle.setAttribute("aria-expanded", String(nextOpen));
     toggle.setAttribute(
       "aria-label",
-      isOpen
-        ? (toggle.dataset.openLabel ?? "Open menu")
-        : (toggle.dataset.closeLabel ?? "Close menu"),
+      nextOpen
+        ? (toggle.dataset.closeLabel ?? "Close menu")
+        : (toggle.dataset.openLabel ?? "Open menu"),
     );
-    mobileNavigation.hidden = isOpen;
+    mobileNavigation.hidden = !nextOpen;
   });
 </script>

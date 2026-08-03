@@ -1,11 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { experience } from "../../src/data/experience";
-import {
-  certifications,
-  education,
-  resumeProject,
-  skillGroups,
-} from "../../src/data/resume";
+import { certifications, education, skillGroups } from "../../src/data/resume";
 
 describe("resume data", () => {
   it("records the latest roles in reverse chronological order", () => {
@@ -19,11 +14,10 @@ describe("resume data", () => {
     expect(experience[0].highlights[0]).toContain("68.3%");
   });
 
-  it("includes education, the Dozee project, and resume skill groups", () => {
+  it("includes education and resume skill groups", () => {
     expect(education.institution).toContain(
       "Indian Institute of Technology Indore",
     );
-    expect(resumeProject.title).toBe("Load Testing Solution");
     expect(skillGroups.map((group) => group.label)).toEqual([
       "Programming languages",
       "Frameworks, tools & libraries",

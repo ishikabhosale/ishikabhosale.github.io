@@ -1,10 +1,5 @@
 ---
-import {
-  certifications,
-  education,
-  resumeProject,
-  skillGroups,
-} from "../../data/resume";
+import { certifications, education, skillGroups } from "../../data/resume";
 import { getDictionary, type Locale } from "../../i18n/config";
 
 interface Props {
@@ -33,15 +28,6 @@ const dictionary = getDictionary(locale);
       <h3>{education.degree}</h3>
       <p>{education.institution}</p>
       <p class="resume-meta">{education.period}</p>
-    </article>
-    <article class="resume-panel">
-      <p class="resume-label">{dictionary["resume.project"]}</p>
-      <h3>{resumeProject.title}</h3>
-      <p>{resumeProject.context}</p>
-      <p>{resumeProject.description}</p>
-      <ul class="tag-list" aria-label={dictionary["resume.technologies"]}>
-        {resumeProject.technologies.map((technology) => <li>{technology}</li>)}
-      </ul>
     </article>
     <article class="resume-panel resume-panel-wide">
       <p class="resume-label">{dictionary["resume.skills"]}</p>

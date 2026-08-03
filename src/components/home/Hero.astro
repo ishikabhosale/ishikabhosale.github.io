@@ -14,12 +14,21 @@ const dictionary = getDictionary(locale);
 
 <section class="hero section-frame" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <p class="eyebrow">{dictionary["hero.eyebrow"]}</p>
-    <h1 id="hero-title" aria-label="Ishika Bhosale">
-      <span aria-hidden="true">Ishika</span>{" "}<span aria-hidden="true"
-        >Bhosale</span
-      >
-    </h1>
+    <div class="hero-intro-block">
+      <img
+        class="hero-avatar"
+        src="/images/hero-photo.jpg"
+        alt="Ishika Bhosale"
+      />
+      <div class="hero-intro-text">
+        <p class="eyebrow">{dictionary["hero.eyebrow"]}</p>
+        <h1 id="hero-title" aria-label="Ishika Bhosale">
+          <span aria-hidden="true">Ishika</span>{" "}<span aria-hidden="true"
+            >Bhosale</span
+          >
+        </h1>
+      </div>
+    </div>
     <p class="hero-role">{dictionary["hero.role"]}</p>
     <p class="hero-summary">{dictionary["hero.summary"]}</p>
     <div class="hero-actions">

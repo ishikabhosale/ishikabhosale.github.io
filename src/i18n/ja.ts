@@ -2,7 +2,7 @@ import type { Dictionary } from "./en";
 
 export const ja = {
   "site.location": "東京",
-  "site.title": "システム・クラウドエンジニア",
+  "site.title": "AI・システムエンジニア",
   "site.description":
     "AI、システムプログラミング、分散アーキテクチャに取り組むソフトウェアエンジニア、Ishika Bhosaleのポートフォリオです。",
   "nav.work": "主な実績",
@@ -10,7 +10,7 @@ export const ja = {
   "nav.writing": "記事",
   "nav.about": "プロフィール",
   "hero.eyebrow": "こんにちは、",
-  "hero.role": "システム・クラウドエンジニア",
+  "hero.role": "AI・システムエンジニア",
   "hero.summary":
     "AI、インフラ、分散アーキテクチャにまたがるスケーラブルな並行システムを構築し、学んだことを発信しています。",
   "hero.work": "主な実績を見る",

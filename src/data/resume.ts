@@ -4,14 +4,6 @@ export const education = {
   institution: "Indian Institute of Technology Indore (IIT Indore)",
 } as const;
 
-export const resumeProject = {
-  title: "Load Testing Solution",
-  context: "Backend Project · Hackathon @Dozee",
-  description:
-    "Built a load-testing and API-testing application around Predator APIs with Flask, React, and PostgreSQL; logged-in users could run requests and review their history.",
-  technologies: ["Flask", "React", "PostgreSQL", "API testing"],
-} as const;
-
 export const skillGroups = [
   {
     id: "languages",

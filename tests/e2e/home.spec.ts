@@ -6,7 +6,7 @@ test("presents the approved portfolio hierarchy", async ({ page }) => {
     "Ishika Bhosale",
   );
   await expect(
-    page.getByText("Systems & Cloud Engineer", { exact: true }),
+    page.getByText("AI & Systems Engineer", { exact: true }),
   ).toBeVisible();
   await expect(
     page.getByText("Recursive AI · Tokyo", { exact: true }),

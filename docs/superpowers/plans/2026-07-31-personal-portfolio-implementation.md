@@ -154,7 +154,7 @@ Expected: FAIL because <code>src/config/site.ts</code> does not exist.
 
 - [ ] **Step 5: Implement the site config and minimal static route**
 
-Create <code>SITE</code> as a readonly object with the approved name, title “Systems & Cloud Engineer”, a systems-focused description, canonical URL, <code>email: null</code>, and the public GitHub/LinkedIn URLs. Treat email as <code>string | null</code> and omit the email control while it is null; the public contact actions use GitHub and LinkedIn until Ishika explicitly supplies an address. Build a minimal <code>BaseLayout.astro</code> that accepts <code>title</code>, <code>description</code>, and <code>canonicalPath</code>, imports <code>global.css</code>, and renders a skip link plus <code>&lt;slot /&gt;</code>.
+Create <code>SITE</code> as a readonly object with the approved name, title “AI & Systems Engineer”, a systems-focused description, canonical URL, <code>email: null</code>, and the public GitHub/LinkedIn URLs. Treat email as <code>string | null</code> and omit the email control while it is null; the public contact actions use GitHub and LinkedIn until Ishika explicitly supplies an address. Build a minimal <code>BaseLayout.astro</code> that accepts <code>title</code>, <code>description</code>, and <code>canonicalPath</code>, imports <code>global.css</code>, and renders a skip link plus <code>&lt;slot /&gt;</code>.
 
 Use CSS custom properties for the approved colors:
 
@@ -478,7 +478,7 @@ test("presents the approved portfolio hierarchy", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Ishika Bhosale",
   );
-  await expect(page.getByText("Systems & Cloud Engineer")).toBeVisible();
+  await expect(page.getByText("AI & Systems Engineer")).toBeVisible();
   await expect(page.locator("#work")).toBeVisible();
   await expect(page.locator("#experience")).toBeVisible();
   await expect(page.locator("#writing")).toBeVisible();
@@ -866,7 +866,7 @@ Expected: FAIL until the final page semantics and 404 route exist.
 
 - [ ] **Step 2: Implement final public assets and 404**
 
-Create <code>scripts/create-social-card.mjs</code> with <code>sharp</code>: resize <code>public/images/server-rack-poster.webp</code> to fit inside the right 540×540 region of a 1200×630 <code>#0b0c10</code> canvas, composite it with an SVG text layer containing “Ishika Bhosale”, “Systems & Cloud Engineer”, a short systems-focused line, and an indigo <code>#8587e8</code> rule, then write <code>public/social-card.png</code>. Run <code>node scripts/create-social-card.mjs</code> and inspect the result at 1200×630. Do not use a generic template image. Add a minimal <code>robots.txt</code> containing <code>User-agent: *</code>, <code>Allow: /</code>, and <code>Sitemap: https://ishikabhosale.github.io/sitemap-index.xml</code>.
+Create <code>scripts/create-social-card.mjs</code> with <code>sharp</code>: resize <code>public/images/server-rack-poster.webp</code> to fit inside the right 540×540 region of a 1200×630 <code>#0b0c10</code> canvas, composite it with an SVG text layer containing “Ishika Bhosale”, “AI & SystemsEngineer”, a short systems-focused line, and an indigo <code>#8587e8</code> rule, then write <code>public/social-card.png</code>. Run <code>node scripts/create-social-card.mjs</code> and inspect the result at 1200×630. Do not use a generic template image. Add a minimal <code>robots.txt</code> containing <code>User-agent: *</code>, <code>Allow: /</code>, and <code>Sitemap: https://ishikabhosale.github.io/sitemap-index.xml</code>.
 
 Implement English 404 output that detects a remembered Japanese interface preference and offers both home destinations without automatic redirect.
 

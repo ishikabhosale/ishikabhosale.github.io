@@ -1,6 +1,6 @@
 export const en = {
   "site.location": "Tokyo",
-  "site.title": "Systems & Cloud Engineer",
+  "site.title": "AI & Systems Engineer",
   "site.description":
     "Ishika Bhosale is a software engineer working across AI, systems programming, and distributed architecture.",
   "nav.work": "Selected Work",
@@ -8,12 +8,12 @@ export const en = {
   "nav.writing": "Journal",
   "nav.about": "About",
   "hero.eyebrow": "Hello, I’m",
-  "hero.role": "Systems & Cloud Engineer",
+  "hero.role": "AI & Systems Engineer",
   "hero.summary":
     "I build scalable, concurrent systems across AI, infrastructure, and distributed architecture, then write about what I learn.",
   "hero.work": "Selected work",
   "hero.article": "Latest article",
-  "hero.interaction": "Interactive model · move pointer gently",
+  "hero.interaction": "Interactive server model · move pointer gently",
   "work.heading": "Selected Work",
   "work.browse": "Browse all projects",
   "work.empty": "More work coming soon",

@@ -17,8 +17,8 @@ function RackModel({ pointer }: RackModelProps) {
   useFrame((_, delta) => {
     if (!model.current) return;
 
-    const targetY = baseRotationY + pointer.x * 0.06;
-    const targetX = pointer.y * 0.035;
+    const targetY = baseRotationY + pointer.x * 0.12;
+    const targetX = pointer.y * 0.07;
     model.current.rotation.y +=
       (targetY - model.current.rotation.y) * Math.min(delta * 4, 1);
     model.current.rotation.x +=
@@ -28,9 +28,9 @@ function RackModel({ pointer }: RackModelProps) {
   return (
     <group
       ref={model}
-      position={[0, -0.38, 0]}
+      position={[0, 0.5, 0]}
       rotation={[0, baseRotationY, 0]}
-      scale={1.28}
+      scale={1.2}
     >
       <primitive object={scene} />
     </group>

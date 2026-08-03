@@ -1,6 +1,6 @@
 export const SITE = {
   name: "Ishika Bhosale",
-  title: "Systems & Cloud Engineer",
+  title: "AI & Systems Engineer",
   description:
     "Ishika Bhosale is a software engineer working across AI, systems programming, and distributed architecture.",
   url: "https://ishikabhosale.github.io",

@@ -1,24 +1,24 @@
 :root {
   color-scheme: dark;
-  --color-canvas: #0b0c10;
-  --color-surface: #11131a;
-  --color-text: #f1eee7;
-  --color-muted: #a6a4ad;
-  --color-line: #2a2d36;
-  --color-accent: #8587e8;
-  --color-status: #8ee36b;
+  --color-canvas: #120612;
+  --color-surface: #1f0e1a;
+  --color-text: #f4e8f1;
+  --color-muted: #c5a8b6;
+  --color-line: #3a2438;
+  --color-accent: #ff84c7;
+  --color-status: #ffb3b3;
   --content-width: 90rem;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --color-canvas: #f1eee7;
-  --color-surface: #e8e4dc;
-  --color-text: #171820;
-  --color-muted: #5d5e68;
-  --color-line: #c9c6c0;
-  --color-accent: #5559bd;
-  --color-status: #347a2a;
+  --color-canvas: #f9eef5;
+  --color-surface: #fff4fb;
+  --color-text: #241524;
+  --color-muted: #7f6f7e;
+  --color-line: #e8d9df;
+  --color-accent: #d35f99;
+  --color-status: #e67b8a;
 }
 
 *,
@@ -63,7 +63,7 @@ body {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   min-height: min(45rem, calc(100vh - 5.5rem));
   padding-block: clamp(4rem, 9vh, 8rem) clamp(4rem, 8vh, 7rem);
   border-bottom: 1px solid var(--color-line);
@@ -71,7 +71,7 @@ body {
 
 .hero-copy {
   align-self: center;
-  max-width: 39rem;
+  max-width: 44rem;
   padding-right: 2rem;
 }
 
@@ -92,6 +92,31 @@ body {
 
 .eyebrow {
   margin: 0 0 1.4rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+}
+
+.hero-intro-block {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.4rem;
+}
+
+.hero-intro-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.hero-avatar {
+  width: 16rem;
+  height: 16rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
 }
 
 .hero h1 {
@@ -116,11 +141,11 @@ body {
 }
 
 .hero-summary {
-  max-width: 34rem;
-  margin: 1.25rem 0 0;
+  max-width: 48rem;
+  margin: 1rem 0 0;
   color: var(--color-muted);
-  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-  line-height: 1.6;
+  font-size: clamp(1.08rem, 1.7vw, 1.35rem);
+  line-height: 1.7;
 }
 
 .hero-actions {
@@ -1062,6 +1087,18 @@ body {
 
   .hero-copy {
     padding-right: 0;
+  }
+
+  .hero-intro-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-avatar {
+    width: 7rem;
+    height: 7rem;
   }
 
   .hero h1 {
