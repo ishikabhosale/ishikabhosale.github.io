@@ -1057,6 +1057,10 @@ body {
     background: var(--color-canvas);
   }
 
+  .mobile-nav[hidden] {
+    display: none !important;
+  }
+
   .mobile-nav a {
     color: var(--color-text);
     text-decoration: none;
