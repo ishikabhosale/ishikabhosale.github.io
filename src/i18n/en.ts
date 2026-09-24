@@ -10,7 +10,7 @@ export const en = {
   "hero.eyebrow": "Hello, I’m",
   "hero.role": "AI & Systems Engineer",
   "hero.summary":
-    "I build scalable, concurrent systems across AI, infrastructure, and distributed architecture, then write about what I learn.",
+    "I build scalable, concurrent systems across AI, infrastructure, and distributed architecture, then write about what I learn. I write a series called 'Below the Abstraction' where I am exploring it all. Go check it out!",
   "hero.work": "Selected work",
   "hero.article": "Latest article",
   "hero.interaction": "Interactive server model · move pointer gently",

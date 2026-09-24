@@ -2,14 +2,15 @@
 import { ArrowUpRight } from "@lucide/astro";
 import type { CollectionEntry } from "astro:content";
 import { getDictionary, type Locale } from "../../i18n/config";
-import { projectPath } from "../../lib/urls";
+import { projectPath, writingPath } from "../../lib/urls";
 
 interface Props {
   locale: Locale;
   projects: CollectionEntry<"projects">[];
+  featuredArticle?: CollectionEntry<"writing">;
 }
 
-const { locale, projects } = Astro.props;
+const { locale, projects, featuredArticle } = Astro.props;
 const dictionary = getDictionary(locale);
 ---
 
@@ -45,6 +46,25 @@ const dictionary = getDictionary(locale);
           </ul>
         </a>
       ))
+    }
+    {
+      featuredArticle && (
+        <a
+          class="work-card work-card-2"
+          href={writingPath(featuredArticle.data.slug, locale)}
+        >
+          <div class="work-card-topline">
+            <span>02</span>
+            <ArrowUpRight size={18} stroke-width="1.5" aria-hidden="true" />
+          </div>
+          <h3>{featuredArticle.data.title}</h3>
+          <p>{featuredArticle.data.description}</p>
+          <ul aria-label="Article topic">
+            <li>{featuredArticle.data.topic}</li>
+            <li>Journal</li>
+          </ul>
+        </a>
+      )
     }
   </div>
   {

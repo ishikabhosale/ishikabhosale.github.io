@@ -16,6 +16,9 @@ interface Props {
 const { locale } = Astro.props;
 const projects = await getFeaturedProjects();
 const writing = await getPublishedWriting();
+const featuredArticle = writing.find(
+  (entry) => entry.data.slug === "cpp-day-1-raii-and-move-semantics",
+);
 const latestArticlePath = writing[0]
   ? writingPath(writing[0].data.slug, locale)
   : locale === "ja"
@@ -26,7 +29,11 @@ const latestArticlePath = writing[0]
 <Hero locale={locale} latestArticlePath={latestArticlePath}>
   <div slot="model"></div>
 </Hero>
-<SelectedWork locale={locale} projects={projects} />
+<SelectedWork
+  locale={locale}
+  projects={projects}
+  featuredArticle={featuredArticle}
+/>
 <ExperienceTimeline locale={locale} />
 <ResumeDetails locale={locale} />
 <JournalPreview locale={locale} entries={writing} />
