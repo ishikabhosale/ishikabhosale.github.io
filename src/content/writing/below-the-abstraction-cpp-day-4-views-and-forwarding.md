@@ -11,7 +11,7 @@ featured: false
 
 Day four is about two ways to avoid unnecessary work: look at data without owning or copying it, and transfer a resource when its current owner is finished with it. The catch is that both techniques make lifetime and value category matter more, not less.
 
-The screenshots that came with my notes helped make the reference rules concrete: a normal rvalue reference accepts expiring values, while a forwarding reference preserves whether its caller supplied an lvalue or an rvalue. They also show why generic code that accepts ranges often needs forwarding references rather than a `const` reference.
+One important distinction runs through the article: a normal rvalue reference accepts expiring values, while a forwarding reference preserves whether its caller supplied an lvalue or an rvalue. That distinction also explains why generic code that accepts ranges may need forwarding references rather than a `const` reference.
 
 ## A view is not an owner
 
@@ -142,7 +142,7 @@ void call_target(T&& value) {
 
 The deduction records the argument's category. For an lvalue of type `X`, `T` is deduced as `X&`; reference collapsing makes `T&&` become `X&`. For an rvalue of type `X`, `T` is `X`, so the parameter becomes `X&&`. `std::forward<T>` then restores the category at the call to `target`.
 
-The screenshots compare reference overloads in a useful way:
+Reference overloads can express three different access intentions:
 
 ```cpp
 void inspect(const Widget&); // read-only access; binds to lvalues and rvalues
